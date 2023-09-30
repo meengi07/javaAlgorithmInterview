@@ -1,8 +1,7 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -88,5 +87,24 @@ public class CodingTest {
 
         textList.addAll(numList);
         System.out.println(textList);
+    }
+
+    @Test
+    void mostCommonWord() {
+        String paragraph = "Bob hit a ball, the hit BALL flew far after it was hit.";
+        String[] banned = {"hit"};
+
+        Set<String> ban = new HashSet<>(Arrays.asList(banned));
+        Map<String,Integer> counts = new HashMap<>();
+
+        paragraph = paragraph.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase();
+        String[] words = paragraph.split(" ");
+
+        for(String w : words) {
+            if(!ban.contains(w)) {
+                counts.put(w, counts.getOrDefault(w, 0) + 1);
+            }
+        }
+        assertEquals("ball", Collections.max(counts.entrySet(), Map.Entry.comparingByValue()).getKey());
     }
 }
