@@ -90,21 +90,40 @@ public class CodingTest {
     }
 
     @Test
+    @DisplayName("819. Most Common Word")
     void mostCommonWord() {
         String paragraph = "Bob hit a ball, the hit BALL flew far after it was hit.";
         String[] banned = {"hit"};
 
         Set<String> ban = new HashSet<>(Arrays.asList(banned));
-        Map<String,Integer> counts = new HashMap<>();
+        Map<String, Integer> counts = new HashMap<>();
 
-        paragraph = paragraph.replaceAll("[^a-zA-Z0-9]", " ").toLowerCase();
-        String[] words = paragraph.split(" ");
+        String[] split = paragraph.replaceAll("\\W+", " ").toLowerCase().split(" ");
 
-        for(String w : words) {
-            if(!ban.contains(w)) {
-                counts.put(w, counts.getOrDefault(w, 0) + 1);
+        for(String word : split) {
+            if(!ban.contains(word)) {
+                counts.put(word, counts.getOrDefault(word, 0) + 1);
             }
         }
+
         assertEquals("ball", Collections.max(counts.entrySet(), Map.Entry.comparingByValue()).getKey());
+    }
+
+    @Test
+    @DisplayName("49. Group Anagrams")
+    void groupAnarams() {
+        String[] strs = {"eat","tea","tan","ate","nat","bat"};
+        Map<String, List<String>> map = new HashMap<>();
+
+        for(String str : strs) {
+            char[] chars = str.toCharArray();
+            Arrays.sort(chars);
+            String key = String.valueOf(chars);
+
+            if(!map.containsKey(key)) map.put(key, new ArrayList<>());
+            map.get(key).add(str);
+        }
+
+        assertEquals(3, map.size());
     }
 }
