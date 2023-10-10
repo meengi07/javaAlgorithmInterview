@@ -148,6 +148,9 @@ public class CodingTest {
     }
 
     public void extendPalindrome(String s, int j, int k) {
+        // s : 문자열
+        // j : index
+        // k : index + 1 & 2
         while(j >= 0 && k < s.length() && s.charAt(j) == s.charAt(k)) {
             j--;
             k++;
