@@ -1,10 +1,7 @@
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -77,4 +74,64 @@ public class ArrayCodingTest {
         }
         return volume;
     }
+
+    @Test
+    @DisplayName("15. 3Sum")
+    void ThreeSum() {
+        int[] nums = new int[]{-1, 0, 1, 2, -1, -4};
+        List<List<Integer>> sum = threeSum1(nums);
+//        List<List<Integer>> sum = threeSum2(nums);
+        List<List<Integer>> myList = Arrays.asList(
+                Arrays.asList(-1, -1, 2),
+                Arrays.asList(-1, 0, 1)
+        );
+        assertEquals(sum, myList);
+    }
+
+    public List<List<Integer>> threeSum1(int[] nums) {
+        List<List<Integer>> reuslt = new LinkedList<>();
+        Arrays.sort(nums);
+
+        for(int i=0; i<nums.length-2; i++) {
+            if(i > 0 && nums[i] == nums[i-1]) continue;
+            for(int j=i+1; j<nums.length-1; j++) {
+                if(j > i+1 && nums[j]==nums[j-1]) continue;
+                for(int k=j+1; k<nums.length; k++) {
+                    if(k > j+1 && nums[k] == nums[k-1]) continue;
+                    if(nums[i] + nums[j] + nums[k] == 0) {
+                        reuslt.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                    }
+                }
+            }
+        }
+        return reuslt;
+    }
+
+    public List<List<Integer>> threeSum2(int[] nums) {
+        int left, right, sum;
+        List<List<Integer>> result = new ArrayList<>();
+        Arrays.sort(nums);
+
+        for(int i=0; i<nums.length-2; i++) {
+            if(i>0 && nums[i] == nums[i-1]) continue;
+            left = i + 1;
+            right = nums.length-1;
+            while (left<right) {
+                sum = nums[i] + nums[left] + nums[right];
+                if(sum < 0) left++;
+                else if (sum > 0) right--;
+                else {
+                    result.add(Arrays.asList(nums[i], nums[left], nums[right]));
+                    while (left<right && nums[left] == nums[left+1]) left++;
+                    while (left<right && nums[right] == nums[right-1]) right--;
+
+                    left++;
+                    right--;
+                }
+            }
+        }
+        return result;
+    }
+
+
 }
