@@ -133,5 +133,25 @@ public class ArrayCodingTest {
         return result;
     }
 
+    @Test
+    @DisplayName("561. Array Partition I")
+    void arrayPartition1() {
+        int[] nums = new int[]{1,4,3,2};
+        int result = arrayPairSum(nums);
+        assertEquals(result, 4);
+    }
+
+    private int arrayPairSum(int[] nums) {
+        int sum = 0;
+        Arrays.sort(nums);
+        for(int i=0; i<nums.length; i++) {
+
+            if(i % 2 == 0) {
+                sum += nums[i];
+            }
+        }
+        return sum;
+    }
+
 
 }
