@@ -174,8 +174,26 @@ public class ArrayCodingTest {
             result[i] *= p;
             p *= nums[i];
         }
-
         return result;
+    }
+
+    @Test
+    @DisplayName("121. Best Time to Buy and Sell Stock")
+    void maxProfit() {
+        int[] prices = new int[]{7,1,5,3,6,4};
+        int result = maxProfit(prices);
+        assertEquals(result, 5);
+    }
+
+    private int maxProfit(int[] prices) {
+        int max = 0;
+        int min = prices[0];
+
+        for(int price : prices) {
+            min = Math.min(min, price);
+            max = Math.max(max, price-min);
+        }
+        return max;
     }
 
 
