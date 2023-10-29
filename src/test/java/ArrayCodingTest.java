@@ -3,8 +3,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayCodingTest {
 
@@ -156,9 +155,9 @@ public class ArrayCodingTest {
     @Test
     @DisplayName("238. Product of Array Except Self")
     void productExceptSelf() {
-        int[] nums = new int[]{1,2,3,4};
+        int[] nums = new int[]{1,3,5,7};
         int[] result = productExceptSelf(nums);
-        assertArrayEquals(result, new int[]{24,12,8,6});
+        assertArrayEquals(result, new int[]{105,35,21,15});
     }
 
     private int[] productExceptSelf(int[] nums) {
@@ -196,5 +195,46 @@ public class ArrayCodingTest {
         return max;
     }
 
+    @Test
+    @DisplayName("234. Palindrome Linked List")
+    void isPalindromeTest() {
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(2, new ListNode(1))));
+        boolean result = isPalindrome(head);
+        assertTrue(result);
+    }
 
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+    private boolean isPalindrome(ListNode head) {
+
+        Deque<Integer> deque = new LinkedList<>();
+        ListNode node = head;
+        while (node != null) {
+            deque.add(node.val);
+            node = node.next;
+        }
+
+        while (deque.size() > 1 && !deque.isEmpty()) {
+            if (!deque.pollFirst().equals(deque.pollLast())) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
 }
