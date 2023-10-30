@@ -237,4 +237,28 @@ public class ArrayCodingTest {
         return true;
 
     }
+    @Test
+    @DisplayName("2. Merge Two Sorted Lists")
+    void mergeTwoSortedListsTest() {
+        ListNode l1 = new ListNode(1, new ListNode(2, new ListNode(4)));
+        ListNode l2 = new ListNode(1, new ListNode(3, new ListNode(5)));
+        ArrayList<Integer> listNode = new ArrayList<>();
+        listNode.add(mergeTwoSortedLists(l1, l2).val);
+        ListNode expected = new ListNode(1, new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))));
+
+        assertEquals(listNode.toString(), expected.toString());
+    }
+    ListNode mergeTwoSortedLists(ListNode list1, ListNode list2) {
+
+        if(list1 == null) return list2;
+        if(list2 == null) return list1;
+
+        if(list1.val < list2.val) {
+            list1.next = mergeTwoSortedLists(list1.next, list2);
+            return list1;
+        } else {
+            list2.next = mergeTwoSortedLists(list1, list2.next);
+            return list2;
+        }
+    }
 }
