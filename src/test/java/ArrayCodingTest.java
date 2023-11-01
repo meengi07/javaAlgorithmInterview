@@ -265,8 +265,8 @@ public class ArrayCodingTest {
     @Test
     @DisplayName("206. Reverse Linked List")
     void reverseListTest() {
-        reverseList(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4, new ListNode(5))))));
-
+        ListNode listNode = reverseList(new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4)))));
+        assertEquals(listNode.val, 4);
     }
 
     ListNode reverseList(ListNode head) {
@@ -279,5 +279,23 @@ public class ArrayCodingTest {
             curr = nextTemp;
         }
         return prev;
+    }
+
+    @Test
+    @DisplayName("24. Swap Nodes in Pairs")
+    void swapPairsTest() {
+        ListNode head = new ListNode(1, new ListNode(2, new ListNode(3, new ListNode(4))));
+        ListNode result = swapPairs(head);
+        assertEquals(result.val, 2);
+    }
+
+    ListNode swapPairs(ListNode head) {
+        if(head != null && head.next != null) {
+            ListNode node = head.next;
+            head.next = swapPairs(head.next.next);
+            node.next = head;
+            return node;
+        }
+        return head;
     }
 }
