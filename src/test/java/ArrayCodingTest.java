@@ -238,7 +238,7 @@ public class ArrayCodingTest {
 
     }
     @Test
-    @DisplayName("2. Merge Two Sorted Lists")
+    @DisplayName("21. Merge Two Sorted Lists")
     void mergeTwoSortedListsTest() {
         ListNode l1 = new ListNode(1, new ListNode(2, new ListNode(4)));
         ListNode l2 = new ListNode(1, new ListNode(3, new ListNode(5)));
